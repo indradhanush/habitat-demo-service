@@ -1,5 +1,0 @@
-#!/bin/bash
-
-exec 2>&1
-
-cp "{{pkg.path}}/message-default.txt" "{{pkg.svc_static_path}}"

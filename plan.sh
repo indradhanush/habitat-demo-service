@@ -1,5 +1,5 @@
 pkg_name=demo-service
-pkg_origin=schu
+pkg_origin=indradhanush
 pkg_version=0.10.0
 pkg_description="Habitat demo service"
 pkg_maintainer="schu"
@@ -13,5 +13,4 @@ do_build() {
 
 do_install() {
   install -m 0755 -D "demo-service" "$pkg_prefix/usr/bin/demo-service"
-  install -m 0644 -D "message-default.txt" "$pkg_prefix/"
 }

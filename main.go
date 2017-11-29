@@ -6,11 +6,11 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"time"
 )
 
 type config struct {
-	Addr        string `json:"addr"`
-	MessageFile string `json:"message-file"`
+	Addr string `json:"addr"`
 }
 
 func main() {
@@ -32,16 +32,10 @@ func main() {
 		os.Exit(1)
 	}
 
-	message, err := ioutil.ReadFile(config.MessageFile)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Failed to message from %q: %v\n", config.MessageFile, err)
-		os.Exit(1)
-	}
-
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		cwd, _ := os.Getwd()
-		fmt.Fprintf(w, "%s\n", cwd)
-		fmt.Fprintf(w, "%s\n", message)
+		message := time.Now().Format("Mon Jan 2 15:04:05 -0700 MST 2006")
+
+		fmt.Fprintf(w, "Hello from habitat demo service. The time is: %s\n", message)
 	})
 
 	if err = http.ListenAndServe(config.Addr, nil); err != http.ErrServerClosed {
